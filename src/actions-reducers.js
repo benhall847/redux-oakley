@@ -1,7 +1,10 @@
 import { combineReducers } from "redux";
 import initialData from "./base.json";
 
-const initialState = initialData;
+const initialState = {
+	activity: initialData.activity,
+	name: "Oakley"
+};
 
 const NAP = "napping";
 const EAT = "eating";
@@ -40,6 +43,55 @@ function activity(state = initialState.activity, action = { type: "" }) {
 	}
 }
 
-export const rootReducer = combineReducers({
-	activity: activity
-});
+const ACTION_SET_NAME = "name";
+const ACTION_SET_ACTIVITY = "activity";
+const ACTION_SET_BOTH = "both";
+
+export function setName(name) {
+	return {
+		type: ACTION_SET_NAME,
+		payload: {
+			name
+		}
+	};
+}
+export function setActivity(activity) {
+	return {
+		type: ACTION_SET_ACTIVITY,
+		payload: {
+			activity
+		}
+	};
+}
+export function setBoth(name, activity) {
+	return {
+		type: ACTION_SET_BOTH,
+		payload: {
+			activity,
+			name
+		}
+	};
+}
+
+function nameActivity(state = initialState, action = { type: "" }) {
+	switch (action.type) {
+		case ACTION_SET_NAME:
+			return {
+				...state,
+				name: action.payload.name
+			};
+		case ACTION_SET_ACTIVITY:
+			return {
+				...state,
+				activity: action.payload.activity
+			};
+		case ACTION_SET_BOTH:
+			return {
+				name: action.payload.name,
+				activity: action.payload.activity
+			};
+		default:
+			return state;
+	}
+}
+export const rootReducer = nameActivity;

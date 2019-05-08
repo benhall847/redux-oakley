@@ -3,25 +3,29 @@ import MyComponent from "../components/MyComponent";
 import {
 	setActivityEat,
 	setActivityNap,
-	setActivityPlay
+	setActivityPlay,
+	setName,
+	setActivity,
+	setBoth
 } from "../actions-reducers";
 
 const mapStateToProps = state => {
 	return {
-		activity: state.activity
+		activity: state.activity,
+		name: state.name
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		handleClickEat: () => {
-			dispatch(setActivityEat());
+		handleClickName: name => {
+			dispatch(setName(name));
 		},
-		handleClickNap: () => {
-			dispatch(setActivityNap());
+		handleClickActivity: activity => {
+			dispatch(setActivity(activity));
 		},
-		handleClickPlay: () => {
-			dispatch(setActivityPlay());
+		handleClickBoth: (name, activity) => {
+			dispatch(setBoth(name, activity));
 		}
 	};
 };
